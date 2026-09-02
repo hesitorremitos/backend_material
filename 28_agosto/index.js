@@ -11,7 +11,7 @@ const app = express()
 
 app.get('/health',(req,res)=>{
     res.status(200)
-    .send("Servidor corriendo")
+    .send("Servidor corriendo en localhost")
 });
 
 
