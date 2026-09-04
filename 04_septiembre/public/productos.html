@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Productos</h1>
+
+
+    <h2>Crear producto</h2>
+    <form action="/productos" method="POST">
+        <label for="">
+            Nombre
+            <input type="text" name="nombre">
+        </label>
+        <br>
+        <label for="">
+            Precio
+            <input type="number" name="precio">
+        </label>
+
+        <button>
+            Crear
+        </button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <th>Nombre</th>
+            <th>Precio</th>
+        </thead>
+
+        <tbody id="productos">
+        </tbody>
+    </table>
+
+
+    <script>
+        fetch('/productos')
+            .then(res => res.json())
+            .then(productos=>{
+                const tbody = document.getElementById('productos')
+                // Insertar plantilla tr
+                productos.data.forEach(producto=>{
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${producto.nombre}</td>
+                            <td>${producto.precio}</td>
+                        </tr>
+                    `
+                })
+            })
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon 04_septiembre/appv2.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hesitorremitos/backend_material.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/hesitorremitos/backend_material/issues"
+  },
+  "homepage": "https://github.com/hesitorremitos/backend_material#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "drizzle-orm": "^0.45.2",
+    "express": "^5.2.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.24.3",
+    "nodemon": "^3.1.14"
+  }
+}
