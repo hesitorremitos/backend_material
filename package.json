@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon 04_septiembre/appv2.js"
+    "dev": "nodemon 10_septiembre/app.js",
+    "db:push": "drizzle-kit push --config=10_septiembre/drizzle.config.ts"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.24.3",
     "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.10"
   }
 }
