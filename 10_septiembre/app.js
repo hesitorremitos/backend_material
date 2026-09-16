@@ -41,4 +41,13 @@ app.post('/productos', async (req, res) => {
     res.status(201).json({ mensaje: "Producto creado", datos: producto })
 })
 
+app.delete('/productos/:id', async (req, res) => {
+    const id = Number(req.params.id)
+    if (!id) return res.status(400).json({ mensaje: "id inválido" })
+    const [producto] = await db.select().from(productosTable).where(eq(productosTable.id, id))
+    if (!producto) return res.status(404).json({ mensaje: "Producto no encontrado" })
+    await db.delete(productosTable).where(eq(productosTable.id, id))
+    res.json({ mensaje: "Producto eliminado", datos: producto })
+})
+
 app.listen(3000)
