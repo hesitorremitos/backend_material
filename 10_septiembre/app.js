@@ -1,4 +1,5 @@
 import express from 'express'
+import { eq } from 'drizzle-orm'
 import { db } from './database/index.js'
 import { productosTable } from './database/schema.js'
 
@@ -29,5 +30,15 @@ app.get('/productos2',async (req,res)=>{
     })
 })
 
+app.post('/productos', async (req, res) => {
+    const { nombre, precio } = req.body
+    if (!nombre || precio == null) {
+        return res.status(400).json({ mensaje: "nombre y precio son requeridos" })
+    }
+    // Insersion y recuperacion del ID
+    const [{ id }] = await db.insert(productosTable).values({ nombre, precio: Number(precio) }).$returningId()
+    const [producto] = await db.select().from(productosTable).where(eq(productosTable.id, id))
+    res.status(201).json({ mensaje: "Producto creado", datos: producto })
+})
 
 app.listen(3000)
