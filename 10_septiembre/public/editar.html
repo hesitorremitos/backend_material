@@ -1,0 +1,28 @@
+<form action="" method="" id="formulario">
+    <label for="nombre">
+        Nombre
+        <input type="text" name="nombre" id="nombre">
+    </label>
+    <br>
+
+    <label for="precio">
+        Precio
+        <input type="number" name="precio" id="precio">
+    </label>
+
+    <button type="submit">Actualizar</button>
+</form>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    fetch(`/productos/${id}`)
+        .then(res => res.json())
+        .then((json)=>{
+            console.log(json.mensaje)
+            const producto = json.datos
+            document.getElementById("nombre").value = producto.nombre
+            document.getElementById("precio").value = producto.precio
+        })
+</script>

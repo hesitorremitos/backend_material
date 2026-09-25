@@ -7,5 +7,32 @@
 </head>
 <body>
     <h1>Lista de productos</h1>
+
+
+    <ul id="productos">
+    </ul>
+
+    <a href="crear.html">Crear Producto</a>
+<!--
+    <script>
+        fetch("/productos")
+            .then(res => res.json())
+            .then((json)=>{
+                console.log(json.mensaje)
+                const lista = document.getElementById("productos")
+                json.datos.forEach((producto)=>{
+                    lista.innerHTML  += `<li>${producto.nombre} Bs.${producto.precio} <a href="editar.html?id=${producto.id}">Editar</a></li>`
+                })
+            })
+    </script>
+-->
+    <script type="module">
+        const res = await fetch("/productos")
+        const productos = await res.json()
+        const lista = document.getElementById("productos")
+        productos.datos.forEach((producto)=>{
+            lista.innerHTML  += `<li>${producto.nombre} Bs.${producto.precio} <a href="editar.html?id=${producto.id}">Editar</a></li>`
+        })
+    </script>
 </body>
 </html>
