@@ -1,7 +1,7 @@
 import { defineConfig } from "drizzle-kit";
 export default defineConfig({
   dialect: "mysql",
-  schema: "10_septiembre/database/schema.js",
+  schema: "./database/schema.js",
   dbCredentials:{
     host: "localhost",
     port: 3306,

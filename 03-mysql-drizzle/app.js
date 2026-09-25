@@ -1,5 +1,6 @@
 import express from "express"
 import mysql from 'mysql'
+import path from 'path'
 
 
 const app = express()
@@ -17,7 +18,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
 // Servir archivos estaticos
-app.use(express.static('04_septiembre/public'))
+app.use(express.static(path.join(import.meta.dirname, 'public')))
 
 app.post('/productos',(req,res)=>{
     //console.log(req.body)

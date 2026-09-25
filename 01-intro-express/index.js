@@ -2,7 +2,7 @@ import express from "express"
 //import cors from "cors"
 import path from 'path'
 
-const dir = path.resolve()
+const dir = import.meta.dirname
 
 // Creamos la aplicacion de express
 const app = express()
