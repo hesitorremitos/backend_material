@@ -1,3 +1,5 @@
 node_modules/
 database.sqlite
 demo/
+# Excluir todos los .env
+.env

@@ -23,4 +23,11 @@ app.use((req,res,next)=>{
 })
 app.use('/', productosRouter.router)
 
-app.listen(3000)
+
+
+const port = process.env.PORT || 8080
+// El puerto lo defgina el sistema operativo
+app.listen(port, ()=>{
+    console.log(`Servidor escuchando en el puerto ${process.env.PORT}`)
+    console.log(`Servidor escuchando en el puerto ${port}`)
+})
