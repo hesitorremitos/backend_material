@@ -7,7 +7,8 @@
     "01-intro-express",
     "02-rutas-query-body",
     "03-mysql-drizzle",
-    "04-middlewares"
+    "04-middlewares",
+    "05-autenticacion-autorizacion"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

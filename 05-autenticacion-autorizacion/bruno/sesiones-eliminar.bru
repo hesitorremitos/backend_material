@@ -1,0 +1,15 @@
+meta {
+  name: Cerrar sesion
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseUrl}}/sesiones/1
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}

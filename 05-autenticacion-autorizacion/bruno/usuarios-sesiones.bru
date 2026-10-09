@@ -1,0 +1,15 @@
+meta {
+  name: Sesiones de usuario
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/usuarios/2/sesiones
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
