@@ -29,7 +29,7 @@ app/
     route.ts                    GET (listar), POST (crear)
     [id]/route.ts               GET (uno), PATCH (editar), DELETE (eliminar)
 lib/prisma.ts                   PrismaClient singleton
-lib/cliente-schema.ts           Esquema Zod compartido (alta y edición)
+lib/validacion.ts                Esquema Zod compartido (alta y edición)
 prisma/schema.prisma            Modelo Cliente
 prisma/seed.mjs                 Datos de ejemplo
 ```
@@ -40,7 +40,7 @@ prisma/seed.mjs                 Datos de ejemplo
 
 ## Validación
 
-Crear y editar un cliente pasa por el mismo esquema Zod (`lib/cliente-schema.ts`): `nombre` (texto, mínimo 1 carácter), `email` (correo) y `telefono` opcional. Los Route Handlers `POST` y `PATCH` usan `safeParse` y, si falla, responden `400` con el mensaje en español de los issues de Zod. La Server Action `crearClienteAction` usa ese mismo esquema. Si el email ya existe, Prisma (`P2002`) sigue respondiendo `409` en la API.
+Crear y editar un cliente pasa por el mismo esquema Zod (`lib/validacion.ts`): `nombre` (texto, mínimo 1 carácter), `email` (correo) y `telefono` opcional. Los Route Handlers `POST` y `PATCH` usan `safeParse` y, si falla, responden `400` con el mensaje en español de los issues de Zod. La Server Action `crearClienteAction` usa ese mismo esquema. Si el email ya existe, Prisma (`P2002`) sigue respondiendo `409` en la API.
 
 ## Probar la API
 ```bash

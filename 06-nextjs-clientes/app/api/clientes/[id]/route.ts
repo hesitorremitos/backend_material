@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { clienteUpdateSchema, mensajeErrorZod } from "@/lib/cliente-schema";
+import { clienteUpdateSchema, mensajeErrorZod } from "@/lib/validacion";
 
 type Ctx = { params: Promise<{ id: string }> };
 

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { clienteSchema, mensajeErrorZod } from "@/lib/cliente-schema";
+import { clienteSchema, mensajeErrorZod } from "@/lib/validacion";
 
 // GET /api/clientes — listar
 export async function GET() {

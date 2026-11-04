@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { clienteSchema } from "@/lib/cliente-schema";
+import { clienteSchema } from "@/lib/validacion";
 
 // Camino B: Server Action — se ejecuta en el servidor, llamada desde un <form action={...}>
 export async function crearClienteAction(formData: FormData) {
