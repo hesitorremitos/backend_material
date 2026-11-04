@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { clienteSchema, mensajeErrorZod } from "@/lib/validacion";
 
 // GET /api/clientes — listar
 export async function GET() {
@@ -10,15 +11,16 @@ export async function GET() {
 // POST /api/clientes — crear
 export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
-  const nombre = typeof body?.nombre === "string" ? body.nombre.trim() : "";
-  const email = typeof body?.email === "string" ? body.email.trim() : "";
-  const telefono = typeof body?.telefono === "string" && body.telefono.trim() ? body.telefono.trim() : null;
-
-  if (!nombre || !email.includes("@")) {
-    return NextResponse.json({ error: "nombre y email válidos son obligatorios" }, { status: 400 });
+  const parsed = clienteSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: mensajeErrorZod(parsed.error) }, { status: 400 });
   }
+
+  const { nombre, email, telefono } = parsed.data;
   try {
-    const cliente = await prisma.cliente.create({ data: { nombre, email, telefono } });
+    const cliente = await prisma.cliente.create({
+      data: { nombre, email, telefono: telefono ?? null },
+    });
     return NextResponse.json(cliente, { status: 201 });
   } catch (e: any) {
     if (e?.code === "P2002") return NextResponse.json({ error: "El email ya existe" }, { status: 409 });

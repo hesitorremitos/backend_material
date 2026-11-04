@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { clienteUpdateSchema, mensajeErrorZod } from "@/lib/validacion";
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -14,13 +15,13 @@ export async function GET(_req: Request, { params }: Ctx) {
 // PATCH /api/clientes/:id
 export async function PATCH(req: Request, { params }: Ctx) {
   const { id } = await params;
-  const body = await req.json().catch(() => ({}));
-  const data: { nombre?: string; email?: string; telefono?: string | null } = {};
-  if (typeof body.nombre === "string" && body.nombre.trim()) data.nombre = body.nombre.trim();
-  if (typeof body.email === "string" && body.email.includes("@")) data.email = body.email.trim();
-  if ("telefono" in body) data.telefono = body.telefono || null;
+  const body = await req.json().catch(() => null);
+  const parsed = clienteUpdateSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: mensajeErrorZod(parsed.error) }, { status: 400 });
+  }
   try {
-    const cliente = await prisma.cliente.update({ where: { id }, data });
+    const cliente = await prisma.cliente.update({ where: { id }, data: parsed.data });
     return NextResponse.json(cliente);
   } catch (e: any) {
     if (e?.code === "P2025") return NextResponse.json({ error: "No encontrado" }, { status: 404 });
