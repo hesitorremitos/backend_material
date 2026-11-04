@@ -2,15 +2,20 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { clienteSchema } from "@/lib/cliente-schema";
 
 // Camino B: Server Action — se ejecuta en el servidor, llamada desde un <form action={...}>
 export async function crearClienteAction(formData: FormData) {
-  const nombre = String(formData.get("nombre") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim();
-  const telefono = String(formData.get("telefono") ?? "").trim() || null;
-  if (!nombre || !email.includes("@")) return;
+  const parsed = clienteSchema.safeParse({
+    nombre: formData.get("nombre"),
+    email: formData.get("email"),
+    telefono: formData.get("telefono"),
+  });
+  if (!parsed.success) return;
+
+  const { nombre, email, telefono } = parsed.data;
   try {
-    await prisma.cliente.create({ data: { nombre, email, telefono } });
+    await prisma.cliente.create({ data: { nombre, email, telefono: telefono ?? null } });
   } catch {
     return; // p.ej. email duplicado (P2002)
   }
